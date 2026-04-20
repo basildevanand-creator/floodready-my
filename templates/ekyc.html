@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FloodReady MY - e-KYC Verification</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="background-orb orb-one"></div>
+    <div class="background-orb orb-two"></div>
+
+    <div class="page-shell">
+        <div class="container">
+            <header class="hero">
+                <div class="hero-topbar">
+                    <div class="brand">
+                        <div class="brand-logo">FR</div>
+                        <div class="brand-text">
+                            <span class="brand-name">FloodReady MY</span>
+                            <span class="brand-tagline">e-KYC Identity Verification Portal</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-content">
+                    <div class="hero-copy">
+                        <p class="eyebrow">DIGITAL IDENTITY VERIFICATION</p>
+                        <h1>Verify Identity with e-KYC.</h1>
+                        <p class="hero-subtitle">
+                            Simulate a citizen verification flow by previewing the device camera, capturing an IC image,
+                            and retrieving a mock citizen record for aid and support workflows.
+                        </p>
+
+                        <div class="hero-actions">
+                            <a href="/" class="hero-action-btn secondary-page-btn">Back to Home</a>
+                            <a href="/relief-trigger" class="hero-action-btn">Open Relief Trigger</a>
+                        </div>
+
+                        <div class="hero-summary compact-summary">
+                            <div class="summary-item">
+                                <span class="summary-title">Purpose</span>
+                                <span class="summary-text">Reduce manual identity checks during citizen support workflows</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-title">Prototype Flow</span>
+                                <span class="summary-text">Camera preview, IC capture, and mock record verification</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-title">Output</span>
+                                <span class="summary-text">Verified citizen profile for follow-up support or aid processing</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="feature-strip">
+                <div class="feature-card">
+                    <h3>Camera Preview</h3>
+                    <p>Open the device camera to preview an identity card within the verification frame.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>IC Capture</h3>
+                    <p>Capture or upload an image of the IC as part of the prototype e-KYC experience.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Record Verification</h3>
+                    <p>Retrieve a mock citizen record using the entered IC number for the final verification step.</p>
+                </div>
+            </section>
+
+            <main>
+                <section class="form-card">
+                    <div class="section-header">
+                        <h2>Simulated e-KYC Verification</h2>
+                        <p>Use the camera preview or upload option, then verify the citizen record with a demo IC number.</p>
+                    </div>
+
+                    <div class="ekyc-layout">
+                        <div class="camera-panel">
+                            <div class="camera-frame">
+                                <div class="camera-header">
+                                    <span class="camera-dot"></span>
+                                    <span class="camera-label">Live Camera Preview</span>
+                                </div>
+
+                                <div class="camera-body">
+                                    <video id="cameraPreview" autoplay playsinline muted class="camera-video hidden"></video>
+
+                                    <div id="cameraPlaceholder" class="camera-placeholder">
+                                        <div class="camera-placeholder-icon">📷</div>
+                                        <p>Click “Start Camera” to preview and position the IC inside the frame.</p>
+                                    </div>
+
+                                    <canvas id="captureCanvas" class="hidden"></canvas>
+                                    <img id="capturedImage" class="captured-image hidden" alt="Captured IC preview">
+
+                                    <p class="camera-help">Prototype preview for IC scanning and photo capture</p>
+                                </div>
+                            </div>
+
+                            <div class="camera-actions-row">
+                                <button id="startCameraBtn" type="button" class="utility-btn">Start Camera</button>
+                                <button id="captureBtn" type="button" class="utility-btn secondary-utility-btn">Capture IC</button>
+                            </div>
+
+                            <div class="upload-box">
+                                <label for="ic_upload" class="upload-label">Or upload / take a picture of your IC</label>
+                                <input id="ic_upload" type="file" accept="image/*" capture="environment" class="text-input">
+                            </div>
+
+                            <div class="demo-id-box">
+                                <h3>Demo IC Numbers</h3>
+                                <ul>
+                                    <li>010203-10-1234</li>
+                                    <li>920415-08-5678</li>
+                                    <li>780922-14-2468</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="verification-panel">
+                            <label for="ic_number">IC Number</label>
+                            <input
+                                type="text"
+                                id="ic_number"
+                                placeholder="Example: 010203-10-1234"
+                                class="text-input"
+                            >
+
+                            <div class="ekyc-actions">
+                                <button id="scanBtn" type="button">Verify Citizen Record</button>
+                            </div>
+
+                            <p id="ekycStatus" class="status-text"></p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="citizenResult" class="result-card hidden">
+                    <div class="section-header">
+                        <h2>Verified Citizen Record</h2>
+                        <p>Structured result returned from the mock e-KYC verification service.</p>
+                    </div>
+
+                    <div class="citizen-profile-card">
+                        <div class="citizen-profile-header">
+                            <div>
+                                <h3 id="citizenName">-</h3>
+                                <p id="citizenId" class="citizen-id-line">-</p>
+                            </div>
+                            <span class="verification-badge">Verified</span>
+                        </div>
+
+                        <div class="citizen-grid">
+                            <div class="citizen-field">
+                                <span class="field-label">IC Number</span>
+                                <span id="fieldIcNumber" class="field-value">-</span>
+                            </div>
+                            <div class="citizen-field">
+                                <span class="field-label">Date of Birth</span>
+                                <span id="fieldDob" class="field-value">-</span>
+                            </div>
+                            <div class="citizen-field">
+                                <span class="field-label">State</span>
+                                <span id="fieldState" class="field-value">-</span>
+                            </div>
+                            <div class="citizen-field">
+                                <span class="field-label">District</span>
+                                <span id="fieldDistrict" class="field-value">-</span>
+                            </div>
+                            <div class="citizen-field full-width">
+                                <span class="field-label">Address</span>
+                                <span id="fieldAddress" class="field-value">-</span>
+                            </div>
+                            <div class="citizen-field">
+                                <span class="field-label">Phone</span>
+                                <span id="fieldPhone" class="field-value">-</span>
+                            </div>
+                            <div class="citizen-field">
+                                <span class="field-label">Household Status</span>
+                                <span id="fieldHouseholdStatus" class="field-value">-</span>
+                            </div>
+                            <div class="citizen-field full-width">
+                                <span class="field-label">Aid Status</span>
+                                <span id="fieldAidStatus" class="field-value highlight-value">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='ekyc.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FloodReady MY</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="background-orb orb-one"></div>
+    <div class="background-orb orb-two"></div>
+
+    <div class="page-shell">
+        <div class="container">
+            <header class="hero">
+                <div class="hero-topbar">
+                    <div class="brand">
+                        <div class="brand-logo">FR</div>
+                        <div class="brand-text">
+                            <span class="brand-name">FloodReady MY</span>
+                            <span class="brand-tagline">Citizen Flood Readiness Support System</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-content">
+                    <div class="hero-copy">
+                        <p class="eyebrow">MALAYSIA FLOOD READINESS SUPPORT</p>
+                        <h1>Flood Readiness Support In One Place.</h1>
+                        <p class="hero-subtitle">
+                            FloodReady MY combines guided flood support, identity readiness,
+                            and area-based aid checking in one simple citizen support experience.
+                        </p>
+
+                        <div class="hero-actions">
+                            <a href="/ekyc" class="hero-action-btn">Open e-KYC Verification</a>
+                            <a href="/relief-trigger" class="hero-action-btn">Open Relief Trigger</a>
+                        </div>
+
+                        <div class="hero-summary">
+                            <div class="summary-item">
+                                <span class="summary-title">Citizens First</span>
+                                <span class="summary-text">Fewer forms, less repeated typing, and faster next-step guidance</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-title">Prepared Support</span>
+                                <span class="summary-text">Saved profile, household, and document details reduce repeated entry</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-title">Main Goal</span>
+                                <span class="summary-text">Help people act quickly before, during, and after floods with less friction</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="guidance-flow-card">
+                <div class="section-header">
+                    <h2>Guided Flood Support</h2>
+                    <p>Select your situation and get a short, practical response without needing to type a long explanation.</p>
+                </div>
+
+                <div class="guided-grid">
+                    <div class="guided-main-panel">
+                        <label>Step 1: Select Flood Stage</label>
+                        <div id="stageOptions" class="choice-grid">
+                            <button type="button" class="choice-card" data-group="stage" data-value="Before Flood">
+                                <span class="choice-title">Before Flood</span>
+                                <span class="choice-text">Prepare documents, household items, and emergency readiness.</span>
+                            </button>
+                            <button type="button" class="choice-card" data-group="stage" data-value="During Flood">
+                                <span class="choice-title">During Flood</span>
+                                <span class="choice-text">Get immediate safety, evacuation, and urgent action support.</span>
+                            </button>
+                            <button type="button" class="choice-card" data-group="stage" data-value="After Flood">
+                                <span class="choice-title">After Flood</span>
+                                <span class="choice-text">Plan safe cleanup, damage documentation, and recovery steps.</span>
+                            </button>
+                            <button type="button" class="choice-card" data-group="stage" data-value="Aid Support">
+                                <span class="choice-title">Aid Support</span>
+                                <span class="choice-text">Check low-friction next steps for documents, eligibility, and aid preparation.</span>
+                            </button>
+                        </div>
+
+                        <label>Step 2: Select What You Need</label>
+                        <div id="needOptions" class="choice-grid"></div>
+
+                        <label>Step 3: Select Household Needs</label>
+                        <div id="householdOptions" class="chip-group">
+                            <button type="button" class="chip-btn" data-group="household" data-value="Elderly Person">Elderly Person</button>
+                            <button type="button" class="chip-btn" data-group="household" data-value="Children">Children</button>
+                            <button type="button" class="chip-btn" data-group="household" data-value="Medical Needs">Medical Needs</button>
+                            <button type="button" class="chip-btn" data-group="household" data-value="Disabled Person">Disabled Person</button>
+                            <button type="button" class="chip-btn" data-group="household" data-value="Pregnant Person">Pregnant Person</button>
+                            <button type="button" class="chip-btn" data-group="household" data-value="Pets">Pets</button>
+                        </div>
+
+                        <label for="additionalContext">Optional Additional Context</label>
+                        <textarea
+                            id="additionalContext"
+                            placeholder="Example: Water has started entering the house, and I am with my elderly mother and two children."
+                        ></textarea>
+
+                        <button id="generateBtn">Get Guided Support</button>
+                        <p id="status" class="status-text"></p>
+                    </div>
+
+                    <aside class="profile-side-panel">
+                        <div class="profile-ready-card">
+                            <div class="profile-ready-header">
+                                <h3>Prepared Profile</h3>
+                                <p>Save your basic details once to reduce repeated typing later.</p>
+                            </div>
+
+                            <a href="/profile/citizen" class="profile-module-link">
+                                <div class="profile-status-item">
+                                    <span class="profile-status-label">Saved Citizen Profile</span>
+                                    <span id="citizenProfileBadge" class="profile-status-badge neutral-badge">Set Up</span>
+                                </div>
+                            </a>
+
+                            <a href="/profile/household" class="profile-module-link">
+                                <div class="profile-status-item">
+                                    <span class="profile-status-label">Saved Household Details</span>
+                                    <span id="householdProfileBadge" class="profile-status-badge neutral-badge">Set Up</span>
+                                </div>
+                            </a>
+
+                            <a href="/profile/documents" class="profile-module-link">
+                                <div class="profile-status-item">
+                                    <span class="profile-status-label">Saved Document Status</span>
+                                    <span id="documentStatusBadge" class="profile-status-badge neutral-badge">Set Up</span>
+                                </div>
+                            </a>
+
+                            <label class="profile-toggle">
+                                <input type="checkbox" id="useProfile" checked>
+                                <span>Use Saved Profile For This Request</span>
+                            </label>
+
+                            <div id="profileSummaryBox" class="profile-ready-note">
+                                No saved citizen profile has been set up yet.
+                            </div>
+
+                            <div id="householdSummaryBox" class="profile-ready-note secondary-note">
+                                No saved household details have been set up yet.
+                            </div>
+
+                            <div id="documentSummaryBox" class="profile-ready-note third-note">
+                                No saved document status has been set up yet.
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </section>
+
+            <section id="result" class="result-card hidden">
+                <div class="section-header">
+                    <h2>FloodReady MY Guided Result</h2>
+                    <p>Short, practical support based on your selected stage, need, and household situation.</p>
+                </div>
+
+                <div class="result-grid">
+                    <div class="result-block full-width accent-block">
+                        <h3>Situation Summary</h3>
+                        <p id="situation_summary"></p>
+                    </div>
+
+                    <div class="result-block full-width top-actions-block">
+                        <h3>Top 3 Actions Now</h3>
+                        <ol id="top_actions_now" class="top-actions-list"></ol>
+                    </div>
+
+                    <div class="result-block">
+                        <h3>Quick Documents Needed</h3>
+                        <ul id="quick_documents_needed"></ul>
+                    </div>
+
+                    <div class="result-block">
+                        <h3>Aid Status Hint</h3>
+                        <p id="aid_status_hint"></p>
+                    </div>
+                </div>
+
+                <details class="details-accordion" open>
+                    <summary>Detailed Guidance</summary>
+                    <div class="details-panel">
+                        <ul id="detailed_guidance"></ul>
+                    </div>
+                </details>
+
+                <details class="details-accordion">
+                    <summary>Common Mistakes</summary>
+                    <div class="details-panel">
+                        <ul id="common_mistakes"></ul>
+                    </div>
+                </details>
+
+                <details class="details-accordion">
+                    <summary>Final Checklist</summary>
+                    <div class="details-panel">
+                        <ul id="final_checklist"></ul>
+                    </div>
+                </details>
+            </section>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

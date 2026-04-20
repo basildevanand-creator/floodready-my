@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FloodReady MY - Citizen Profile</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="background-orb orb-one"></div>
+    <div class="background-orb orb-two"></div>
+
+    <div class="page-shell">
+        <div class="container">
+            <header class="hero">
+                <div class="hero-topbar">
+                    <div class="brand">
+                        <div class="brand-logo">FR</div>
+                        <div class="brand-text">
+                            <span class="brand-name">FloodReady MY</span>
+                            <span class="brand-tagline">Citizen Profile</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-content">
+                    <div class="hero-copy">
+                        <p class="eyebrow">SAVED CITIZEN PROFILE</p>
+                        <h1>Set Up Your Citizen Profile.</h1>
+                        <p class="hero-subtitle">
+                            Enter your personal information once so FloodReady MY can reduce repeated typing
+                            and provide a simpler support flow.
+                        </p>
+
+                        <div class="hero-actions">
+                            <a href="/" class="hero-action-btn secondary-page-btn">Back To Home</a>
+                            <a href="/ekyc" class="hero-action-btn">Open e-KYC Verification</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="guidance-flow-card">
+                <div class="section-header">
+                    <h2>Citizen Profile Form</h2>
+                    <p>Fill in the details below to save your citizen profile for this prototype.</p>
+                </div>
+
+                <div class="profile-form-grid">
+                    <div>
+                        <label for="full_name">Full Name</label>
+                        <input type="text" id="full_name" class="text-input" placeholder="Example: Aisyah Binti Rahman">
+
+                        <label for="ic_number">IC Number</label>
+                        <input type="text" id="ic_number" class="text-input" placeholder="Example: 010203-10-1234">
+
+                        <label for="phone_number">Phone Number</label>
+                        <input type="text" id="phone_number" class="text-input" placeholder="Example: 012-3456789">
+                    </div>
+
+                    <div>
+                        <label for="address">Address</label>
+                        <textarea id="address" placeholder="Example: No. 12, Jalan Meranti 4, Shah Alam, Selangor"></textarea>
+
+                        <label for="state">State</label>
+                        <input type="text" id="state" class="text-input" placeholder="Example: Selangor">
+
+                        <label for="district">District</label>
+                        <input type="text" id="district" class="text-input" placeholder="Example: Shah Alam">
+                    </div>
+                </div>
+
+                <button id="saveCitizenProfileBtn">Save Citizen Profile</button>
+                <p id="citizenProfileStatus" class="status-text"></p>
+            </section>
+
+            <section class="result-card">
+                <div class="section-header">
+                    <h2>Saved Profile Preview</h2>
+                    <p>This is the information that will be reused later in the guided support flow.</p>
+                </div>
+
+                <div class="citizen-profile-card">
+                    <div class="citizen-grid">
+                        <div class="citizen-field">
+                            <span class="field-label">Full Name</span>
+                            <span id="preview_full_name" class="field-value">-</span>
+                        </div>
+                        <div class="citizen-field">
+                            <span class="field-label">IC Number</span>
+                            <span id="preview_ic_number" class="field-value">-</span>
+                        </div>
+                        <div class="citizen-field">
+                            <span class="field-label">Phone Number</span>
+                            <span id="preview_phone_number" class="field-value">-</span>
+                        </div>
+                        <div class="citizen-field">
+                            <span class="field-label">State</span>
+                            <span id="preview_state" class="field-value">-</span>
+                        </div>
+                        <div class="citizen-field full-width">
+                            <span class="field-label">Address</span>
+                            <span id="preview_address" class="field-value">-</span>
+                        </div>
+                        <div class="citizen-field">
+                            <span class="field-label">District</span>
+                            <span id="preview_district" class="field-value">-</span>
+                        </div>
+                        <div class="citizen-field">
+                            <span class="field-label">Profile Status</span>
+                            <span id="preview_status" class="field-value highlight-value">Not Saved</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='citizen_profile.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FloodReady MY - Household Details</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="background-orb orb-one"></div>
+    <div class="background-orb orb-two"></div>
+
+    <div class="page-shell">
+        <div class="container">
+            <header class="hero">
+                <div class="hero-topbar">
+                    <div class="brand">
+                        <div class="brand-logo">FR</div>
+                        <div class="brand-text">
+                            <span class="brand-name">FloodReady MY</span>
+                            <span class="brand-tagline">Household Details</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-content">
+                    <div class="hero-copy">
+                        <p class="eyebrow">SAVED HOUSEHOLD DETAILS</p>
+                        <h1>Set Up Your Household Details.</h1>
+                        <p class="hero-subtitle">
+                            Save your household information once so FloodReady MY can provide better support with less repeated typing.
+                        </p>
+
+                        <div class="hero-actions">
+                            <a href="/" class="hero-action-btn secondary-page-btn">Back To Home</a>
+                            <a href="/profile/citizen" class="hero-action-btn">Open Citizen Profile</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="guidance-flow-card">
+                <div class="section-header">
+                    <h2>Household Details Form</h2>
+                    <p>Fill in your household situation so support can be tailored more accurately for your family.</p>
+                </div>
+
+                <div class="profile-form-grid">
+                    <div>
+                        <label for="adults_count">Number Of Adults</label>
+                        <input type="number" id="adults_count" class="text-input" min="0" placeholder="Example: 2">
+
+                        <label for="children_count">Number Of Children</label>
+                        <input type="number" id="children_count" class="text-input" min="0" placeholder="Example: 3">
+
+                        <label for="elderly_present">Elderly Person In Household</label>
+                        <select id="elderly_present" class="text-input">
+                            <option value="">Select</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+
+                        <label for="medical_needs">Medical Needs In Household</label>
+                        <select id="medical_needs" class="text-input">
+                            <option value="">Select</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="disabled_person">Disabled Person In Household</label>
+                        <select id="disabled_person" class="text-input">
+                            <option value="">Select</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+
+                        <label for="pregnant_person">Pregnant Person In Household</label>
+                        <select id="pregnant_person" class="text-input">
+                            <option value="">Select</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+
+                        <label for="pets_present">Pets In Household</label>
+                        <select id="pets_present" class="text-input">
+                            <option value="">Select</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+
+                        <label for="transport_available">Transport Available</label>
+                        <select id="transport_available" class="text-input">
+                            <option value="">Select</option>
+                            <option value="Car">Car</option>
+                            <option value="Motorcycle">Motorcycle</option>
+                            <option value="No Personal Transport">No Personal Transport</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button id="saveHouseholdProfileBtn">Save Household Details</button>
+                <p id="householdProfileStatus" class="status-text"></p>
+            </section>
+
+            <section class="result-card">
+                <div class="section-header">
+                    <h2>Saved Household Preview</h2>
+                    <p>This is the household information that will be reused later in the guided support flow.</p>
+                </div>
+
+                <div class="citizen-profile-card">
+                    <div class="citizen-grid">
+                        <div class="citizen-field">
+                            <span class="field-label">Adults</span>
+                            <span id="preview_adults_count" class="field-value">-</span>
+                        </div>
+                        <div class="citizen-field">
+                            <span class="field-label">Children</span>
+                            <span id="preview_children_count" class="field-value">-</span>
+                        </div>
+                        <div class="citizen-field">
+                            <span class="field-label">Elderly Person</span>
+                            <span id="preview_elderly_present" class="field-value">-</span>
+                        </div>
+                        <div class="citizen-field">
+                            <span class="field-label">Medical Needs</span>
+                            <span id="preview_medical_needs" class="field-value">-</span>
+                        </div>
+                        <div class="citizen-field">
+                            <span class="field-label">Disabled Person</span>
+                            <span id="preview_disabled_person" class="field-value">-</span>
+                        </div>
+                        <div class="citizen-field">
+                            <span class="field-label">Pregnant Person</span>
+                            <span id="preview_pregnant_person" class="field-value">-</span>
+                        </div>
+                        <div class="citizen-field">
+                            <span class="field-label">Pets</span>
+                            <span id="preview_pets_present" class="field-value">-</span>
+                        </div>
+                        <div class="citizen-field">
+                            <span class="field-label">Transport</span>
+                            <span id="preview_transport_available" class="field-value">-</span>
+                        </div>
+                        <div class="citizen-field full-width">
+                            <span class="field-label">Profile Status</span>
+                            <span id="preview_household_status" class="field-value highlight-value">Not Saved</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='household_profile.js') }}"></script>
+</body>
+</html>

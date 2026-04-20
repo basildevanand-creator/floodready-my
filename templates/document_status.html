@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FloodReady MY - Document Status</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="background-orb orb-one"></div>
+    <div class="background-orb orb-two"></div>
+
+    <div class="page-shell">
+        <div class="container">
+            <header class="hero">
+                <div class="hero-topbar">
+                    <div class="brand">
+                        <div class="brand-logo">FR</div>
+                        <div class="brand-text">
+                            <span class="brand-name">FloodReady MY</span>
+                            <span class="brand-tagline">Document Status</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-content">
+                    <div class="hero-copy">
+                        <p class="eyebrow">SAVED DOCUMENT STATUS</p>
+                        <h1>Set Up Your Document Status.</h1>
+                        <p class="hero-subtitle">
+                            Upload your key document files for this prototype so FloodReady MY can reflect document readiness
+                            and reduce repeated preparation later.
+                        </p>
+
+                        <div class="hero-actions">
+                            <a href="/" class="hero-action-btn secondary-page-btn">Back To Home</a>
+                            <a href="/profile/household" class="hero-action-btn">Open Household Details</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="guidance-flow-card">
+                <div class="section-header">
+                    <h2>Document Upload Form</h2>
+                    <p>Upload the most relevant flood-related household documents. This prototype stores file names only in your browser.</p>
+                </div>
+
+                <div class="document-grid">
+                    <div class="document-upload-card">
+                        <label for="doc_mykad">MyKad / Identity Document</label>
+                        <input type="file" id="doc_mykad" class="text-input">
+                        <p id="doc_mykad_name" class="upload-file-name">No file selected</p>
+                    </div>
+
+                    <div class="document-upload-card">
+                        <label for="doc_birth">Birth Certificate / Family Record</label>
+                        <input type="file" id="doc_birth" class="text-input">
+                        <p id="doc_birth_name" class="upload-file-name">No file selected</p>
+                    </div>
+
+                    <div class="document-upload-card">
+                        <label for="doc_medical">Medical Record / Prescription</label>
+                        <input type="file" id="doc_medical" class="text-input">
+                        <p id="doc_medical_name" class="upload-file-name">No file selected</p>
+                    </div>
+
+                    <div class="document-upload-card">
+                        <label for="doc_utility">Utility Bill / Address Proof</label>
+                        <input type="file" id="doc_utility" class="text-input">
+                        <p id="doc_utility_name" class="upload-file-name">No file selected</p>
+                    </div>
+
+                    <div class="document-upload-card">
+                        <label for="doc_bank">Bank / Financial Document</label>
+                        <input type="file" id="doc_bank" class="text-input">
+                        <p id="doc_bank_name" class="upload-file-name">No file selected</p>
+                    </div>
+
+                    <div class="document-upload-card">
+                        <label for="doc_other">Other Supporting Document</label>
+                        <input type="file" id="doc_other" class="text-input">
+                        <p id="doc_other_name" class="upload-file-name">No file selected</p>
+                    </div>
+                </div>
+
+                <button id="saveDocumentStatusBtn">Save Document Status</button>
+                <p id="documentStatusMessage" class="status-text"></p>
+            </section>
+
+            <section class="result-card">
+                <div class="section-header">
+                    <h2>Saved Document Preview</h2>
+                    <p>This is the document readiness information that will be reused later in the guided support flow.</p>
+                </div>
+
+                <div class="citizen-profile-card">
+                    <div class="citizen-grid">
+                        <div class="citizen-field">
+                            <span class="field-label">MyKad / Identity Document</span>
+                            <span id="preview_doc_mykad" class="field-value">-</span>
+                        </div>
+                        <div class="citizen-field">
+                            <span class="field-label">Birth Certificate / Family Record</span>
+                            <span id="preview_doc_birth" class="field-value">-</span>
+                        </div>
+                        <div class="citizen-field">
+                            <span class="field-label">Medical Record / Prescription</span>
+                            <span id="preview_doc_medical" class="field-value">-</span>
+                        </div>
+                        <div class="citizen-field">
+                            <span class="field-label">Utility Bill / Address Proof</span>
+                            <span id="preview_doc_utility" class="field-value">-</span>
+                        </div>
+                        <div class="citizen-field">
+                            <span class="field-label">Bank / Financial Document</span>
+                            <span id="preview_doc_bank" class="field-value">-</span>
+                        </div>
+                        <div class="citizen-field">
+                            <span class="field-label">Other Supporting Document</span>
+                            <span id="preview_doc_other" class="field-value">-</span>
+                        </div>
+                        <div class="citizen-field full-width">
+                            <span class="field-label">Document Status</span>
+                            <span id="preview_document_status" class="field-value highlight-value">Not Saved</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='document_status.js') }}"></script>
+</body>
+</html>

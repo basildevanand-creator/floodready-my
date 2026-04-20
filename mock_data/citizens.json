@@ -1,0 +1,44 @@
+[
+  {
+    "ic_number": "010203-10-1234",
+    "full_name": "Aisyah Binti Rahman",
+    "citizen_id": "MYDIGI-0001",
+    "date_of_birth": "2001-02-03",
+    "state": "Selangor",
+    "district": "Shah Alam",
+    "address": "No. 12, Jalan Meranti 4, Shah Alam, Selangor",
+    "phone": "012-3456789",
+    "aid_status": "Eligible for Aid",
+    "household_status": "Flood-Prone Area",
+    "latitude": 3.0738,
+    "longitude": 101.5183
+  },
+  {
+    "ic_number": "920415-08-5678",
+    "full_name": "Muhammad Amir Bin Salleh",
+    "citizen_id": "MYDIGI-0002",
+    "date_of_birth": "1992-04-15",
+    "state": "Pahang",
+    "district": "Kuantan",
+    "address": "Lot 18, Kampung Sungai Isap, Kuantan, Pahang",
+    "phone": "013-9876543",
+    "aid_status": "Not Eligible",
+    "household_status": "Previous Flood Victim",
+    "latitude": 3.8077,
+    "longitude": 103.326
+  },
+  {
+    "ic_number": "780922-14-2468",
+    "full_name": "Saraswathy A/P Muniandy",
+    "citizen_id": "MYDIGI-0003",
+    "date_of_birth": "1978-09-22",
+    "state": "Johor",
+    "district": "Johor Bahru",
+    "address": "22, Jalan Bunga Raya, Johor Bahru, Johor",
+    "phone": "017-2211445",
+    "aid_status": "Eligible for Aid",
+    "household_status": "Verified Flood-Affected Household",
+    "latitude": 1.4927,
+    "longitude": 103.7414
+  }
+]

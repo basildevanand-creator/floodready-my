@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FloodReady MY - Relief Trigger</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="background-orb orb-one"></div>
+    <div class="background-orb orb-two"></div>
+
+    <div class="page-shell">
+        <div class="container">
+            <header class="hero">
+                <div class="hero-topbar">
+                    <div class="brand">
+                        <div class="brand-logo">FR</div>
+                        <div class="brand-text">
+                            <span class="brand-name">FloodReady MY</span>
+                            <span class="brand-tagline">Automated Flood Relief Trigger</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-content">
+                    <div class="hero-copy">
+                        <p class="eyebrow">AUTOMATED AID ELIGIBILITY LOGIC</p>
+                        <h1>Flood Monitoring And Aid Trigger.</h1>
+                        <p class="hero-subtitle">
+                            Monitor station-level water and rainfall conditions, then check whether people in the affected area
+                            are likely to receive aid when the flood threshold is exceeded.
+                        </p>
+
+                        <div class="hero-actions">
+                            <a href="/" class="hero-action-btn secondary-page-btn">Back To Home</a>
+                            <a href="/ekyc" class="hero-action-btn">Open e-KYC Verification</a>
+                        </div>
+
+                        <div class="hero-summary compact-summary">
+                            <div class="summary-item">
+                                <span class="summary-title">Purpose</span>
+                                <span class="summary-text">Help users understand flood conditions and possible aid eligibility by area</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-title">Trigger Rule</span>
+                                <span class="summary-text">Water levels above 2.0 metres indicate that aid may be triggered for the affected area</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-title">Portal Flow</span>
+                                <span class="summary-text">Review station conditions by state, then check whether aid is available for that location</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="portal-card">
+                <div class="portal-header">
+                    <h2>Current Water Level And Rainfall Notification</h2>
+                </div>
+
+                <div class="portal-table-wrap">
+                    <table class="portal-table">
+                        <thead>
+                            <tr>
+                                <th>Station</th>
+                                <th>Water Level (m)</th>
+                                <th>Rainfall (mm)</th>
+                                <th>Aid Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stationTableBody">
+                            <tr>
+                                <td colspan="4">Loading station data...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='relief_trigger.js') }}"></script>
+</body>
+</html>
