@@ -49,6 +49,295 @@ def load_flood_sensor_data():
     return sensors
 
 
+def build_fallback_response(stage, need, household_needs, additional_context, citizen_profile, household_profile, document_status):
+    household_text = ", ".join(household_needs) if household_needs else "your household"
+    district = citizen_profile.get("district", "your area") if citizen_profile else "your area"
+    state = citizen_profile.get("state", "your state") if citizen_profile else "your state"
+
+    fallback_map = {
+        ("Before Flood", "Prepare Documents"): {
+            "situation_summary": f"You are preparing important documents before possible flooding in {district}, {state}. The priority is to organise and protect essential records early.",
+            "top_actions_now": [
+                "Place your most important documents in one waterproof folder or bag.",
+                "Keep digital copies of IDs, medical records, and key bills in one safe location.",
+                "Make sure every household member knows where the documents are stored."
+            ],
+            "quick_documents_needed": [
+                "MyKad / identity documents",
+                "Birth certificates",
+                "Medical records or prescriptions",
+                "Utility bill or proof of address"
+            ],
+            "aid_status_hint": "Prepared documents can make later aid or recovery support much easier.",
+            "detailed_guidance": [
+                "Collect the most important identity, household, and medical documents first.",
+                "Separate original documents from copies and keep both in protected storage.",
+                "Store one document pack near your emergency bag for quick access.",
+                "Check that documents for children, elderly family members, or medical needs are included."
+            ],
+            "common_mistakes": [
+                "Leaving documents in different rooms instead of one safe place.",
+                "Forgetting medical papers or prescriptions.",
+                "Waiting until floodwater is already near before packing documents."
+            ],
+            "final_checklist": [
+                "Important documents packed",
+                "Waterproof storage prepared",
+                "All household members informed"
+            ]
+        },
+        ("Before Flood", "Prepare Emergency Bag"): {
+            "situation_summary": f"You are preparing an emergency bag for {household_text} before flooding. The goal is to make fast evacuation easier.",
+            "top_actions_now": [
+                "Pack one easy-to-carry emergency bag with essential items.",
+                "Include medicine, phone chargers, water, and small cash.",
+                "Keep the bag in a place that can be reached quickly."
+            ],
+            "quick_documents_needed": [
+                "Identity documents",
+                "Medical records or medicine list",
+                "Emergency contact list"
+            ],
+            "aid_status_hint": "A ready emergency bag reduces delay if evacuation or relief support becomes necessary.",
+            "detailed_guidance": [
+                "Pack enough basics for at least short-term movement or evacuation.",
+                "Include household-specific items for elderly people, children, or pets if needed.",
+                "Check the bag regularly so expired items are replaced.",
+                "Keep the emergency bag near the exit or another easy-access location."
+            ],
+            "common_mistakes": [
+                "Making the bag too heavy to carry quickly.",
+                "Forgetting medicine or phone charging items.",
+                "Packing the bag but storing it somewhere hard to reach."
+            ],
+            "final_checklist": [
+                "Emergency bag packed",
+                "Essential medicine included",
+                "Bag placed in quick-access location"
+            ]
+        },
+        ("During Flood", "Immediate Safety Steps"): {
+            "situation_summary": f"You need immediate flood safety support in {district}, {state}. The priority is protecting people first, especially vulnerable household members.",
+            "top_actions_now": [
+                "Move everyone to the highest safe area immediately.",
+                "Take identity documents, medicine, and phones with you.",
+                "Call emergency services if water rises quickly or evacuation is needed."
+            ],
+            "quick_documents_needed": [
+                "MyKad / identity documents",
+                "Medical records or prescriptions",
+                "Emergency contact list"
+            ],
+            "aid_status_hint": "If your area is seriously affected, saved identity and household details can help later support steps.",
+            "detailed_guidance": [
+                "Focus on people, not possessions, if water is entering the home.",
+                "Keep children, elderly family members, and anyone with medical needs close together.",
+                "Avoid walking or driving through unsafe floodwater.",
+                "Monitor official updates and be ready to move if instructed."
+            ],
+            "common_mistakes": [
+                "Trying to save too many household items first.",
+                "Separating from family members during urgent movement.",
+                "Waiting too long before moving to higher ground."
+            ],
+            "final_checklist": [
+                "All household members gathered",
+                "Documents and medicine taken",
+                "Emergency contact decision made"
+            ]
+        },
+        ("During Flood", "Evacuation Help"): {
+            "situation_summary": f"You need evacuation guidance during active flooding. The focus is moving safely and taking only the most essential items.",
+            "top_actions_now": [
+                "Prepare to leave with only essential people, documents, medicine, and phones.",
+                "Use a safe official evacuation route if available.",
+                "Contact emergency services or local responders if transport is needed."
+            ],
+            "quick_documents_needed": [
+                "Identity documents",
+                "Medical records",
+                "Proof of address if available"
+            ],
+            "aid_status_hint": "Evacuation records and saved household details may help with later support or shelter registration.",
+            "detailed_guidance": [
+                "Keep the household together and assign one adult to watch children or elderly family members.",
+                "Do not delay evacuation to collect non-essential property.",
+                "Turn off electricity only if it is safe to do so.",
+                "Move to the nearest safe shelter or instructed location."
+            ],
+            "common_mistakes": [
+                "Taking too many items during evacuation.",
+                "Using unsafe routes through deep water.",
+                "Leaving medicine behind."
+            ],
+            "final_checklist": [
+                "Essential items packed",
+                "Safe route identified",
+                "Household ready to move"
+            ]
+        },
+        ("After Flood", "Safe Cleaning"): {
+            "situation_summary": "You are starting post-flood cleanup. The priority is safe recovery, health protection, and careful handling of damaged areas.",
+            "top_actions_now": [
+                "Check that the area is safe before starting cleanup.",
+                "Wear protective items such as gloves, boots, and masks if available.",
+                "Separate damaged items and begin only basic safe cleaning first."
+            ],
+            "quick_documents_needed": [
+                "Identity documents",
+                "Medical records",
+                "Utility bill or address proof",
+                "Photos of damage if possible"
+            ],
+            "aid_status_hint": "Documented damage and organised records can support later aid or claims.",
+            "detailed_guidance": [
+                "Do not switch on electrical items until the area is checked and dry.",
+                "Take photos of major damage before throwing items away.",
+                "Clean and dry important areas first to reduce health risks.",
+                "Keep records of major losses and essential repairs."
+            ],
+            "common_mistakes": [
+                "Throwing away damaged items before recording them.",
+                "Cleaning unsafe areas too early.",
+                "Ignoring electrical or contamination risks."
+            ],
+            "final_checklist": [
+                "Safety checked",
+                "Damage documented",
+                "Basic cleaning started carefully"
+            ]
+        },
+        ("After Flood", "Damage Documentation"): {
+            "situation_summary": "You are preparing damage records after flooding. The priority is clear documentation for support, claims, or follow-up.",
+            "top_actions_now": [
+                "Take clear photos of damaged rooms and major items.",
+                "List the most important damaged household items first.",
+                "Keep all photos and notes in one place."
+            ],
+            "quick_documents_needed": [
+                "Identity documents",
+                "Utility bill or proof of address",
+                "Bank details if support may be needed",
+                "Photos or videos of damage"
+            ],
+            "aid_status_hint": "Clear damage records can speed up later support or application steps.",
+            "detailed_guidance": [
+                "Start with high-value or essential household damage first.",
+                "Record damaged appliances, furniture, medical items, and children's essentials if relevant.",
+                "Keep a dated list of losses and urgent repair needs.",
+                "Store copies of all submitted information for follow-up."
+            ],
+            "common_mistakes": [
+                "Taking unclear or incomplete photos.",
+                "Failing to keep a written damage list.",
+                "Losing track of submitted documents later."
+            ],
+            "final_checklist": [
+                "Damage photos captured",
+                "Loss list prepared",
+                "Records stored safely"
+            ]
+        },
+        ("Aid Support", "Check Eligibility"): {
+            "situation_summary": f"You want to understand possible aid readiness for {district}, {state}. The priority is making sure your key details and supporting records are ready.",
+            "top_actions_now": [
+                "Check that your saved profile and household details are complete.",
+                "Prepare key identity and address documents.",
+                "Keep flood impact evidence ready if your household is affected."
+            ],
+            "quick_documents_needed": [
+                "MyKad / identity documents",
+                "Utility bill or address proof",
+                "Bank details",
+                "Flood damage photos if available"
+            ],
+            "aid_status_hint": "Prepared household and document information can reduce delay when aid-related steps are needed.",
+            "detailed_guidance": [
+                "Review whether your household information is complete and accurate.",
+                "Check that saved document status matches what you actually have ready.",
+                "Keep records of damage, evacuation, or disruption if relevant.",
+                "Use the relief monitoring page to understand area conditions."
+            ],
+            "common_mistakes": [
+                "Waiting to prepare documents until the last minute.",
+                "Forgetting proof of address or bank details.",
+                "Not keeping evidence of flood impact."
+            ],
+            "final_checklist": [
+                "Profile reviewed",
+                "Documents prepared",
+                "Support records ready"
+            ]
+        },
+        ("Aid Support", "Prepare Required Documents"): {
+            "situation_summary": "You are preparing documents for possible aid-related steps. The priority is keeping the most relevant records complete and easy to access.",
+            "top_actions_now": [
+                "Gather identity, address, and household-related documents in one place.",
+                "Check that document file names and copies are clear.",
+                "Keep digital and physical versions where possible."
+            ],
+            "quick_documents_needed": [
+                "MyKad / identity documents",
+                "Utility bill or address proof",
+                "Bank details",
+                "Medical records if relevant",
+                "Flood damage evidence"
+            ],
+            "aid_status_hint": "Ready documents reduce follow-up delay if support is requested later.",
+            "detailed_guidance": [
+                "Focus first on identity and address documents since they are commonly needed.",
+                "Add medical or dependent-related records if your household has special needs.",
+                "Keep document copies in a safe folder for fast reuse.",
+                "Review missing items and prepare them early."
+            ],
+            "common_mistakes": [
+                "Uploading unclear document files.",
+                "Not checking whether essential records are missing.",
+                "Keeping documents scattered across different places."
+            ],
+            "final_checklist": [
+                "Essential documents gathered",
+                "Copies prepared",
+                "Missing items identified"
+            ]
+        }
+    }
+
+    default_response = {
+        "situation_summary": f"You are using FloodReady MY for {stage.lower()} support with a focus on {need.lower()}. The goal is to provide simple next steps for {household_text}.",
+        "top_actions_now": [
+            "Focus on the most urgent household need first.",
+            "Keep essential documents and phones ready and accessible.",
+            "Use the saved profile information to reduce repeated preparation."
+        ],
+        "quick_documents_needed": [
+            "Identity documents",
+            "Medical records if relevant",
+            "Proof of address",
+            "Emergency contact details"
+        ],
+        "aid_status_hint": "Prepared records and clear household information can make later support steps easier.",
+        "detailed_guidance": [
+            "Review your immediate situation and focus on the safest next action.",
+            "Use saved household and document details where possible.",
+            "Keep all essential records together and easy to access.",
+            "Monitor local flood conditions and act early when needed."
+        ],
+        "common_mistakes": [
+            "Waiting too long before preparing essentials.",
+            "Keeping key records in different places.",
+            "Focusing on non-essential tasks before urgent needs."
+        ],
+        "final_checklist": [
+            "Immediate need identified",
+            "Essential records ready",
+            "Next action confirmed"
+        ]
+    }
+
+    return fallback_map.get((stage, need), default_response)
+
+
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -184,8 +473,6 @@ def generate():
     if not stage or not need:
         return jsonify({"error": "Please select a flood stage and primary need."}), 400
 
-    household_text = ", ".join(household_needs) if household_needs else "None selected"
-
     citizen_profile_text = "No saved citizen profile used."
     if use_profile and citizen_profile:
         citizen_profile_text = json.dumps(citizen_profile, ensure_ascii=False)
@@ -197,6 +484,8 @@ def generate():
     document_status_text = "No saved document status used."
     if use_profile and document_status:
         document_status_text = json.dumps(document_status, ensure_ascii=False)
+
+    household_text = ", ".join(household_needs) if household_needs else "None selected"
 
     prompt = f"""
 You are an AI assistant for FloodReady MY, a Malaysian citizen flood readiness support system.
@@ -265,13 +554,27 @@ Rules:
         parsed = json.loads(raw_text)
         return jsonify(parsed)
 
-    except json.JSONDecodeError:
-        return jsonify({
-            "error": "The AI returned an invalid response format. Please try again."
-        }), 500
     except Exception as e:
+        error_text = str(e)
+
+        if "429" in error_text or "quota" in error_text.lower():
+            fallback_response = build_fallback_response(
+                stage,
+                need,
+                household_needs,
+                additional_context,
+                citizen_profile,
+                household_profile,
+                document_status
+            )
+            fallback_response["aid_status_hint"] = (
+                fallback_response["aid_status_hint"] +
+                " Live guidance is temporarily busy, so a backup response is being shown."
+            )
+            return jsonify(fallback_response)
+
         return jsonify({
-            "error": f"Server error: {str(e)}"
+            "error": "The guidance service is temporarily unavailable. Please try again shortly."
         }), 500
 
 
